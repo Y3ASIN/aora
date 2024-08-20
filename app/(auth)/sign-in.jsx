@@ -1,20 +1,44 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+import { Link, router } from "expo-router";
 
 import images from "../../constants/images";
 import FormField from "../../components/FormField";
-import { useState } from "react";
 import CustomButton from "../../components/CustomButton";
-import { Link } from "expo-router";
+import { getCurrentUser, signIn } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = async () => {
+    if (form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await signIn(form.email, form.password);
+      const result = await getCurrentUser();
+      setUser(result);
+      setIsLoggedIn(true);
+
+      Alert.alert('Success', 'User signed in successfully')
+      router.replace("/home");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -51,9 +75,16 @@ const SignIn = () => {
             isLoading={isSubmitting}
           />
 
-          <View className='justify-center items-center pt-5 flex-row gap-2' >
-              <Text className='text-gray-100 font-pregular text-ls'>Don't have account?</Text>
-              <Link href='/sign-up' className="text-lg font-psemibold text-secondary">Sign Up</Link>
+          <View className="justify-center items-center pt-5 flex-row gap-2">
+            <Text className="text-gray-100 font-pregular text-ls">
+              Don't have account?
+            </Text>
+            <Link
+              href="/sign-up"
+              className="text-lg font-psemibold text-secondary"
+            >
+              Sign Up
+            </Link>
           </View>
         </View>
       </ScrollView>
