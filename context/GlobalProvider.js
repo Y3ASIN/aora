@@ -12,17 +12,16 @@ const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     getCurrentUser()
-      .then((res) => {
-        if (res) {
+      .then((user) => {
+        if (user) {
           setIsLoggedIn(true);
-          setUser(res);
+          setUser(user);
         } else {
-          setIsLoggedIn(false);
-          setUser(null);
+          console.log("No user found.");
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log("Error in fetching user:", error);
       })
       .finally(() => {
         setIsLoading(false);
