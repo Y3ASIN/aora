@@ -32,8 +32,8 @@ const zoomOut = {
 const TrendingItem = ({ activeItem, item }) => {
   const [play, setPlay] = useState(false);
 
-  console.log('Play state:', play);
-  console.log('Video URI:', item.video);
+  // console.log('Play state:', play);
+  // console.log('Video URI:', item.video);
 
   return (
     <Animatable.View
@@ -91,6 +91,7 @@ const Trending = ({ posts }) => {
   return (
     <FlatList
       data={posts}
+      key={posts.$id}
       horizontal
       keyExtractor={(item) => item.$id}
       renderItem={({ item }) => (
