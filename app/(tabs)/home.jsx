@@ -19,7 +19,7 @@ import VideoCard from "../../components/VideoCard";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
-  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+  const { user } = useGlobalContext();
   const [refreshing, setRefreshing] = useState(false);
   
   const { data: posts, refetch } = useAppwrite(getAllPosts);
