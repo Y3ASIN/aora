@@ -1,7 +1,5 @@
 import { useState } from "react";
 import {
-  View,
-  Text,
   FlatList,
   TouchableOpacity,
   ImageBackground,
@@ -31,9 +29,6 @@ const zoomOut = {
 
 const TrendingItem = ({ activeItem, item }) => {
   const [play, setPlay] = useState(false);
-
-  // console.log('Play state:', play);
-  // console.log('Video URI:', item.video);
 
   return (
     <Animatable.View

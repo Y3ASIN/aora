@@ -1,5 +1,6 @@
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import { View, FlatList, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
 import EmptyState from "../../components/EmptyState";
 import { getUserPosts, signOut } from "../../lib/appwrite";
@@ -8,7 +9,6 @@ import VideoCard from "../../components/VideoCard";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
-import { router } from "expo-router";
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
@@ -64,7 +64,7 @@ const Profile = () => {
                 titleStyles="text-xl"
               />
               <InfoBox
-                title="1.2k"
+                title="0"
                 subtitle="Followers"
                 titleStyles="text-xl"
               />
